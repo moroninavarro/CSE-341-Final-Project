@@ -41,11 +41,10 @@ const createCategory = async(req, res) => {
     //#swagger.tags=['Contacts']
     const categories = {
         NameCategory: req.body.NameCategory, 
-        Author: req.body.Author, 
-        Pages: req.body.Pages 
+        description: req.body.description
     };
     try {
-        const response = await mongodb.getDatabase().db().collection('books').insertOne(book);
+        const response = await mongodb.getDatabase().db().collection('categories').insertOne(categories);
         if (response.aknowledged) {
             console.log((response.insertedId));
             res.status(204).send(response);
@@ -57,19 +56,19 @@ const createCategory = async(req, res) => {
 
 };
 
-const updateBooks = async(req, res) => {
+const updateCategory = async(req, res) => {
     //#swagger.tags=['Contacts']
     if (!ObjectId.isValid(req.params.id)) {
-    res.status(400).json('Must use a valid book id to update a book.');
+    res.status(400).json('Must use a valid category id to update a category.');
   
-    const bookId = new ObjectId(req.params.id);
-    const book = {
+    const categoryId = new ObjectId(req.params.id);
+    const category = {
         NameBook: req.body.NameBook, 
         Author: req.body.Author, 
         Pages: req.body.Pages 
     };
     try{
-        const response = await mongodb.getDatabase().db().collection('books').replaceOne({_id:bookId }, book);
+        const response = await mongodb.getDatabase().db().collection('categories').replaceOne({_id:categoryId }, category);
        if (response.modifiedCount > 0) {
            res.status(204).send();
 
@@ -78,18 +77,18 @@ const updateBooks = async(req, res) => {
         res.status(400).json({ message: err});
     }
     } else {
-        res.status(500).json(response.error || 'Some error ocurred while updating the book.');
+        res.status(500).json(response.error || 'Some error ocurred while updating the category.');
     }
 };
 
 
-const deleteBooks = async (req, res) => {
+const deleteCategory = async (req, res) => {
     //#swagger.tags=['Contacts']
     if (!ObjectId.isValid(req.params.id)) {
-    res.status(400).json('Must use a valid book id to delete a book.');
+    res.status(400).json('Must use a valid category id to delete a category.');
   
-    const bookId = new ObjectId(req.params.id);
-    const response = await mongodb.getDatabase().db().collection('books').deleteOne({_id:bookId});
+    const categoryId = new ObjectId(req.params.id);
+    const response = await mongodb.getDatabase().db().collection('category').deleteOne({_id:categoryId});
 
     try{
         if (response.deletedCount > 0) {
@@ -99,14 +98,14 @@ const deleteBooks = async (req, res) => {
             res.status(400).json({ message: err});
         }
    } else {
-        res.status(500).json(response.error || 'Some error ocurred while updating the book.');
+        res.status(500).json(response.error || 'Some error ocurred while updating the category.');
     }
 };
 
 module.exports = {
     getAll,
     getSingle,
-    createBooks,
-    updateBooks,
-    deleteBooks
+    createCategory,
+    updateCategory,
+    deleteCategory
 };
