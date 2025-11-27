@@ -2,52 +2,282 @@
   "swagger": "2.0",
   "info": {
     "title": "Final Project API",
-    "description": "This is our API as a Team",
+    "description": "Full Swagger Documentation for Categories, Movies, Reviews, and Users",
     "version": "1.0.0"
   },
   "host": "cse-341-final-project-9ijo.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
   "paths": {
-    "/login": {
+    "/categories": {
       "get": {
-        "description": "",
+        "summary": "Get all categories",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "List of categories",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Category" }
+            }
+          },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "summary": "Create a new category",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "category",
+            "schema": { "$ref": "#/definitions/Category" }
           }
+        ],
+        "responses": {
+          "201": { "description": "Category created" },
+          "400": { "description": "Invalid data" },
+          "500": { "description": "Server error" }
         }
       }
     },
-    "/logout": {
+
+    "/categories/{id}": {
       "get": {
-        "description": "",
+        "summary": "Get category by ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
-          "default": {
-            "description": ""
-          }
+          "200": { "description": "Category found", "schema": { "$ref": "#/definitions/Category" } },
+          "404": { "description": "Category not found" }
+        }
+      },
+      "put": {
+        "summary": "Update category",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          { "in": "body", "name": "category", "schema": { "$ref": "#/definitions/Category" } }
+        ],
+        "responses": {
+          "200": { "description": "Category updated" },
+          "400": { "description": "Invalid data" },
+          "404": { "description": "Not found" }
+        }
+      },
+      "delete": {
+        "summary": "Delete category",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "responses": {
+          "200": { "description": "Category deleted" },
+          "404": { "description": "Not found" }
         }
       }
     },
-    "/api-docs": {
+
+    "/movies": {
       "get": {
-        "description": "",
+        "summary": "Get all movies",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "List of movies",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Movie" }
+            }
           }
+        }
+      },
+      "post": {
+        "summary": "Create a new movie",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "movie",
+            "schema": { "$ref": "#/definitions/Movie" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Movie created" },
+          "400": { "description": "Invalid data" }
+        }
+      }
+    },
+
+    "/movies/{id}": {
+      "get": {
+        "summary": "Get movie by ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "responses": {
+          "200": { "description": "Movie found", "schema": { "$ref": "#/definitions/Movie" } },
+          "404": { "description": "Not found" }
+        }
+      },
+      "put": {
+        "summary": "Update movie",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          { "in": "body", "name": "movie", "schema": { "$ref": "#/definitions/Movie" } }
+        ],
+        "responses": {
+          "200": { "description": "Movie updated" },
+          "400": { "description": "Invalid data" },
+          "404": { "description": "Not found" }
+        }
+      },
+      "delete": {
+        "summary": "Delete movie",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "responses": {
+          "200": { "description": "Movie deleted" },
+          "404": { "description": "Not found" }
+        }
+      }
+    },
+
+    "/reviews": {
+      "get": {
+        "summary": "Get all reviews",
+        "responses": {
+          "200": {
+            "description": "List of reviews",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Review" }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new review",
+        "parameters": [
+          { "in": "body", "name": "review", "schema": { "$ref": "#/definitions/Review" } }
+        ],
+        "responses": {
+          "201": { "description": "Review created" }
+        }
+      }
+    },
+
+    "/reviews/{id}": {
+      "get": {
+        "summary": "Get review by ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "responses": {
+          "200": { "description": "Review found", "schema": { "$ref": "#/definitions/Review" } },
+          "404": { "description": "Not found" }
+        }
+      },
+      "put": {
+        "summary": "Update review",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          { "in": "body", "name": "review", "schema": { "$ref": "#/definitions/Review" } }
+        ],
+        "responses": {
+          "200": { "description": "Review updated" },
+          "400": { "description": "Invalid data" }
+        }
+      },
+      "delete": {
+        "summary": "Delete review",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "responses": {
+          "200": { "description": "Review deleted" }
+        }
+      }
+    },
+
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/User" }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "parameters": [
+          { "in": "body", "name": "user", "schema": { "$ref": "#/definitions/User" } }
+        ],
+        "responses": {
+          "201": { "description": "User created" }
+        }
+      }
+    },
+
+    "/users/{id}": {
+      "get": {
+        "summary": "Get user by ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "responses": {
+          "200": { "description": "User found", "schema": { "$ref": "#/definitions/User" } },
+          "404": { "description": "Not found" }
+        }
+      },
+      "put": {
+        "summary": "Update user",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          { "in": "body", "name": "user", "schema": { "$ref": "#/definitions/User" } }
+        ],
+        "responses": {
+          "200": { "description": "User updated" }
+        }
+      },
+      "delete": {
+        "summary": "Delete user",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "responses": {
+          "200": { "description": "User deleted" }
         }
       }
     }
   },
+
+  "definitions": {
+    "Category": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "example": "Action" },
+        "description": { "type": "string", "example": "Fast-paced movies with fights and explosions" }
+      }
+    },
+
+    "Movie": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "example": "The Dark Knight" },
+        "year": { "type": "integer", "example": 2008 },
+        "genre": { "type": "string", "example": "Action" },
+        "rating": { "type": "number", "example": 9.0 }
+      }
+    },
+
+    "Review": {
+      "type": "object",
+      "properties": {
+        "movieId": { "type": "string", "example": "65d0d01a9c6e0d1b14c3eabc" },
+        "reviewer": { "type": "string", "example": "John Doe" },
+        "comment": { "type": "string", "example": "Amazing movie!" },
+        "score": { "type": "number", "example": 8.5 }
+      }
+    },
+
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "example": "Fabian Betancourt" },
+        "email": { "type": "string", "example": "fabian@example.com" }
+      }
+    }
+  },
+
   "components": {
     "securitySchemes": {
       "cookieAuth": {
@@ -57,6 +287,7 @@
       }
     }
   },
+
   "security": [
     {
       "cookieAuth": []
