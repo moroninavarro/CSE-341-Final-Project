@@ -33,7 +33,7 @@ app.use(passport.session());
 
 // The cors
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://cse-341-final-project-na80.onrender.com",
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
