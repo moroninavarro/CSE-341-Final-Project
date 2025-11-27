@@ -1,111 +1,129 @@
-const { response } = require('express');
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const getAll = async(req, res) => {
-    //#swagger.tags=['Contacts']
-    const result = await mongodb.getDatabase().db().collection('categories').find();
+// GET ALL CATEGORIES
+const getAll = async (req, res) => {
+  try {
+    const categories = await mongodb
+      .getDatabase()
+      .db()
+      .collection('categories')
+      .find()
+      .toArray();
 
-    try{
-        result.toArray().then((categories) => {
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(categories);
-        });
-    } catch (err) {
-        res.status(400).json({ message: err});
-    }
+    res.status(200).json(categories);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-const getSingle = async(req, res) => {
-    if (!ObjectId.isValid(req.params.id)) {
-    // res.status(400).json('Must use a valid book id to update a book.');
-  
-    //#swagger.tags=['Contacts']
-    const categorieId = new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('categories').find({_id: categorieId});
-    try {
-        result.toArray().then((categories) => {
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(categories[0]);
-        });
-    } catch (err) {
-        res.status(400).json({ message: err});
+// GET SINGLE CATEGORY
+const getSingle = async (req, res) => {
+  const id = req.params.id;
+
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid ID format" });
+  }
+
+  try {
+    const category = await mongodb
+      .getDatabase()
+      .db()
+      .collection('categories')
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!category) {
+      return res.status(404).json({ error: "Category not found" });
     }
-} else {
-    res.status(400).json("Invalid ID entered. Please try again.");
-}
+
+    res.status(200).json(category);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
+// CREATE CATEGORY
+const createCategory = async (req, res) => {
+  const category = {
+    NameCategory: req.body.NameCategory,
+    description: req.body.description
+  };
 
-const createCategory = async(req, res) => {
-    //#swagger.tags=['Contacts']
-    const categories = {
-        NameCategory: req.body.NameCategory, 
-        description: req.body.description
-    };
-    try {
-        const response = await mongodb.getDatabase().db().collection('categories').insertOne(categories);
-        if (response.aknowledged) {
-            console.log((response.insertedId));
-            res.status(204).send(response);
-        }
-    } catch (error) {
-        res.status(500).json(response.error);
-        res.json(response.errored || "An error ocurred. Please try again.");
-    }
+  try {
+    const result = await mongodb
+      .getDatabase()
+      .db()
+      .collection('categories')
+      .insertOne(category);
 
+    res.status(201).json({
+      message: "Category created",
+      id: result.insertedId
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-const updateCategory = async(req, res) => {
-    //#swagger.tags=['Contacts']
-    if (!ObjectId.isValid(req.params.id)) {
-    res.status(400).json('Must use a valid category id to update a category.');
-  
-    const categoryId = new ObjectId(req.params.id);
-    const category = {
-        NameBook: req.body.NameBook, 
-        Author: req.body.Author, 
-        Pages: req.body.Pages 
-    };
-    try{
-        const response = await mongodb.getDatabase().db().collection('categories').replaceOne({_id:categoryId }, category);
-       if (response.modifiedCount > 0) {
-           res.status(204).send();
+// UPDATE CATEGORY
+const updateCategory = async (req, res) => {
+  const id = req.params.id;
 
-    } 
-    } catch (err) {
-        res.status(400).json({ message: err});
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid ID format" });
+  }
+
+  const updatedCategory = {
+    NameCategory: req.body.NameCategory,
+    description: req.body.description
+  };
+
+  try {
+    const result = await mongodb
+      .getDatabase()
+      .db()
+      .collection('categories')
+      .replaceOne({ _id: new ObjectId(id) }, updatedCategory);
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Category not found" });
     }
-    } else {
-        res.status(500).json(response.error || 'Some error ocurred while updating the category.');
-    }
+
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-
+// DELETE CATEGORY
 const deleteCategory = async (req, res) => {
-    //#swagger.tags=['Contacts']
-    if (!ObjectId.isValid(req.params.id)) {
-    res.status(400).json('Must use a valid category id to delete a category.');
-  
-    const categoryId = new ObjectId(req.params.id);
-    const response = await mongodb.getDatabase().db().collection('category').deleteOne({_id:categoryId});
+  const id = req.params.id;
 
-    try{
-        if (response.deletedCount > 0) {
-            res.status(204).send();
-        } 
-        } catch (err) {
-            res.status(400).json({ message: err});
-        }
-   } else {
-        res.status(500).json(response.error || 'Some error ocurred while updating the category.');
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid ID format" });
+  }
+
+  try {
+    const result = await mongodb
+      .getDatabase()
+      .db()
+      .collection('categories')
+      .deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "Category not found" });
     }
+
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 module.exports = {
-    getAll,
-    getSingle,
-    createCategory,
-    updateCategory,
-    deleteCategory
+  getAll,
+  getSingle,
+  createCategory,
+  updateCategory,
+  deleteCategory
 };
