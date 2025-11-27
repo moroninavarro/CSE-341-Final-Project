@@ -29,6 +29,7 @@
       },
       "post": {
         "summary": "Create a new category",
+        "tag":"Categories",
         "parameters": [
           {
             "in": "body",
@@ -47,6 +48,7 @@
     "/categories/{id}": {
       "get": {
         "summary": "Get category by ID",
+        "tag":"Categories",
         "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
           "200": { "description": "Category found", "schema": { "$ref": "#/definitions/Category" } },
@@ -55,6 +57,7 @@
       },
       "put": {
         "summary": "Update category",
+        "tag":"Categories",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           { "in": "body", "name": "category", "schema": { "$ref": "#/definitions/Category" } }
@@ -67,6 +70,7 @@
       },
       "delete": {
         "summary": "Delete category",
+        "tag":"Categories",
         "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
           "200": { "description": "Category deleted" },
@@ -91,6 +95,7 @@
       },
       "post": {
         "summary": "Create a new movie",
+        "tag":"Movies",
         "parameters": [
           {
             "in": "body",
@@ -108,6 +113,7 @@
     "/movies/{id}": {
       "get": {
         "summary": "Get movie by ID",
+        "tag":"Movies",
         "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
           "200": { "description": "Movie found", "schema": { "$ref": "#/definitions/Movie" } },
@@ -116,6 +122,7 @@
       },
       "put": {
         "summary": "Update movie",
+        "tag":"Movies",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           { "in": "body", "name": "movie", "schema": { "$ref": "#/definitions/Movie" } }
@@ -128,6 +135,7 @@
       },
       "delete": {
         "summary": "Delete movie",
+        "tag":"Movies",
         "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
           "200": { "description": "Movie deleted" },
@@ -152,6 +160,7 @@
       },
       "post": {
         "summary": "Create a new review",
+        "tag":"Reviews",
         "parameters": [
           { "in": "body", "name": "review", "schema": { "$ref": "#/definitions/Review" } }
         ],
@@ -164,6 +173,7 @@
     "/reviews/{id}": {
       "get": {
         "summary": "Get review by ID",
+        "tag":"Reviews",
         "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
           "200": { "description": "Review found", "schema": { "$ref": "#/definitions/Review" } },
@@ -172,6 +182,7 @@
       },
       "put": {
         "summary": "Update review",
+        "tag":"Reviews",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           { "in": "body", "name": "review", "schema": { "$ref": "#/definitions/Review" } }
@@ -183,6 +194,7 @@
       },
       "delete": {
         "summary": "Delete review",
+        "tag":"Reviews",
         "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
           "200": { "description": "Review deleted" }
@@ -206,6 +218,7 @@
       },
       "post": {
         "summary": "Create a new user",
+        "tag":"User",
         "parameters": [
           { "in": "body", "name": "user", "schema": { "$ref": "#/definitions/User" } }
         ],
@@ -218,6 +231,7 @@
     "/users/{id}": {
       "get": {
         "summary": "Get user by ID",
+        "tag":"User",
         "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
           "200": { "description": "User found", "schema": { "$ref": "#/definitions/User" } },
@@ -226,6 +240,7 @@
       },
       "put": {
         "summary": "Update user",
+        "tag":"User",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           { "in": "body", "name": "user", "schema": { "$ref": "#/definitions/User" } }
@@ -236,6 +251,7 @@
       },
       "delete": {
         "summary": "Delete user",
+        "tag":"User",
         "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
         "responses": {
           "200": { "description": "User deleted" }
