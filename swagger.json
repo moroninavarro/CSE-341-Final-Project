@@ -5,7 +5,7 @@
     "description": "Full Swagger Documentation for Categories, Movies, Reviews, and Users",
     "version": "1.0.0"
   },
-  "host": "cse-341-final-project-9ijo.onrender.com",
+  "host": "cse-341-final-project-na80.onrender.com",
   "basePath": "/",
   "schemes": ["https"],
   "consumes": ["application/json"],
