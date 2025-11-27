@@ -264,7 +264,7 @@
     "Category": {
       "type": "object",
       "properties": {
-        "name": { "type": "string", "example": "Action" },
+        "NameCategory": { "type": "string", "example": "Action" },
         "description": { "type": "string", "example": "Fast-paced movies with fights and explosions" }
       }
     },
