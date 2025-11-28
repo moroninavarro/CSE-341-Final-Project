@@ -293,7 +293,8 @@
       "type": "object",
       "properties": {
         "name": { "type": "string", "example": "Fabian Betancourt" },
-        "email": { "type": "string", "example": "fabian@example.com" }
+        "email": { "type": "string", "example": "fabian@example.com" },
+        "role": { "type": "string", "example": "admin" }
       }
     }
   },
