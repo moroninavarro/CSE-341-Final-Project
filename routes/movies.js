@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const movieController = require('../controllers/movies');
-const { ensureAuth } = require('../middleware/authenticate');
+const { isAuthenticated } = require("../middleware/authenticate");
 
 router.get('/', movieController.getAll);
 router.get('/:id', movieController.getSingle);
 
-router.post('/', ensureAuth, movieController.createMovie);
-router.put('/:id', ensureAuth, movieController.updateMovie);
-router.delete('/:id', ensureAuth, movieController.deleteMovie);
+router.post('/', isAuthenticated, movieController.createMovie);
+router.put('/:id', isAuthenticated, movieController.updateMovie);
+router.delete('/:id', isAuthenticated, movieController.deleteMovie);
 
 module.exports = router;
 // This is how the code should look next week when we implement authentication.

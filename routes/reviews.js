@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const reviewController = require('../controllers/reviews');
-const { ensureAuth } = require('../middleware/authenticate');
+const { isAuthenticated } = require("../middleware/authenticate");
 
 router.get('/', reviewController.getAll);
 router.get('/:id', reviewController.getSingle);
 
-router.post('/', ensureAuth, reviewController.createReview);
-router.put('/:id', ensureAuth, reviewController.updateReview);
-router.delete('/:id', ensureAuth, reviewController.deleteReview);
+router.post('/', isAuthenticated, reviewController.createReview);
+router.put('/:id', isAuthenticated, reviewController.updateReview);
+router.delete('/:id', isAuthenticated, reviewController.deleteReview);
 
 module.exports = router;
 // This is how the code should look next week when we implement authentication.
