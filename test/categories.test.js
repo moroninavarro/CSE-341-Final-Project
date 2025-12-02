@@ -1,6 +1,8 @@
 const request = require('supertest');
 const app = require('../server');
 const { ObjectId } = require('mongodb');
+
+// Mock the database module
 jest.mock('../data/database', () => ({
   getDatabase: () => ({
     db: () => ({
