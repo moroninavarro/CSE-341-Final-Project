@@ -22,7 +22,7 @@ const getSingle = async (req, res) => {
   const id = req.params.id;
 
   if (!ObjectId.isValid(id)) {
-    return res.status(400).json("Invalid ID format.");
+    return res.status(400).json({ error: 'Invalid ID format.' });
   }
 
   try {
@@ -33,11 +33,10 @@ const getSingle = async (req, res) => {
       .findOne({ _id: new ObjectId(id) });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     res.status(200).json(user);
-
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -48,7 +47,7 @@ const createUser = async (req, res) => {
   const user = {
     name: req.body.name,
     email: req.body.email,
-    role: req.body.role || "user"
+    role: req.body.role || 'user',
   };
 
   try {
@@ -59,10 +58,9 @@ const createUser = async (req, res) => {
       .insertOne(user);
 
     res.status(201).json({
-      message: "User created",
-      id: response.insertedId
+      message: 'User created',
+      id: response.insertedId,
     });
-
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -73,13 +71,13 @@ const updateUser = async (req, res) => {
   const id = req.params.id;
 
   if (!ObjectId.isValid(id)) {
-    return res.status(400).json("Invalid ID format.");
+    return res.status(400).json({ error: 'Invalid ID format.' });
   }
 
   const updatedUser = {
     name: req.body.name,
     email: req.body.email,
-    role: req.body.role
+    role: req.body.role,
   };
 
   try {
@@ -90,11 +88,10 @@ const updateUser = async (req, res) => {
       .replaceOne({ _id: new ObjectId(id) }, updatedUser);
 
     if (response.matchedCount === 0) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     res.status(204).send();
-
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -105,7 +102,7 @@ const deleteUser = async (req, res) => {
   const id = req.params.id;
 
   if (!ObjectId.isValid(id)) {
-    return res.status(400).json("Invalid ID format.");
+    return res.status(400).json('Invalid ID format.');
   }
 
   try {
@@ -116,11 +113,10 @@ const deleteUser = async (req, res) => {
       .deleteOne({ _id: new ObjectId(id) });
 
     if (response.deletedCount === 0) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     res.status(204).send();
-
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -131,5 +127,5 @@ module.exports = {
   getSingle,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
 };
