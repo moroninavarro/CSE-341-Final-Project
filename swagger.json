@@ -285,8 +285,8 @@
     "Review": {
       "type": "object",
       "properties": {
-        "movieId": { "type": "number", "example": "65d0d01a9c6e0d1b14c3eabc" },
-        "userId": { "type": "number", "example": "65d0d01a9c6e0d1b14c3eclp" },
+        "movieId": { "type": "string|size:24|regex:/^[a-f0-9]{24}$/", "example": "65d0d01a9c6e0d1b14c3eabc" },
+        "userId": { "type": "string|size:24|regex:/^[a-f0-9]{24}$/", "example": "65d0d01a9c6e0d1b14c3eclp" },
         "rating": { "type": "number", "example": 8.5 },
         "reviewText": { "type": "string", "example": "Amazing movie!" }
       }
