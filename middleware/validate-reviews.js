@@ -2,8 +2,8 @@ const validator = require('../helpers/validate');
 
 const saveReviews = (req, res, next) => {
   const validationRule = {
-    movieId: 'required|string',
-    userId: 'required|string',
+    movieId: 'required|number',
+    userId: 'required|number',
     rating: 'required|number',
     reviewText: 'required|string'
   };

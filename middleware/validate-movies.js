@@ -5,10 +5,10 @@ const saveMovies = (req, res, next) => {
     title: 'required|string',
     description: 'required|string',
     genre: 'required|string',
-    year: 'required|string',
-    rating: 'required|string',
+    year: 'required|integer',
+    rating: 'required|number',
     director: 'required|string',
-    duration: 'required|string'
+    duration: 'required|number'
   };
   validator(req.body, validationRule, {}, (err, status) => {
     if (!status) {
