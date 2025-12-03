@@ -4,7 +4,7 @@ const saveReviews = (req, res, next) => {
   const validationRule = {
     movieId: 'required|string',
     userId: 'required|string',
-    rating: 'required|string',
+    rating: 'required|number',
     reviewText: 'required|string'
   };
   validator(req.body, validationRule, {}, (err, status) => {

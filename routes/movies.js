@@ -8,8 +8,8 @@ const validation = require('../middleware/validate-movies');
 router.get('/', movieController.getAll);
 router.get('/:id', movieController.getSingle);
 
-router.post('/', isAuthenticated, movieController.createMovie);
-router.put('/:id', isAuthenticated, movieController.updateMovie);
+router.post('/', isAuthenticated, validation.saveMovies, movieController.createMovie);
+router.put('/:id', isAuthenticated, validation.saveMovies, movieController.updateMovie);
 router.delete('/:id', isAuthenticated, movieController.deleteMovie);
 
 module.exports = router;

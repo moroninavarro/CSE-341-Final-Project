@@ -283,9 +283,9 @@
       "type": "object",
       "properties": {
         "movieId": { "type": "string", "example": "65d0d01a9c6e0d1b14c3eabc" },
-        "reviewer": { "type": "string", "example": "John Doe" },
-        "comment": { "type": "string", "example": "Amazing movie!" },
-        "score": { "type": "number", "example": 8.5 }
+        "userId": { "type": "string", "example": "John Doe" },
+        "rating": { "type": "number", "example": 8.5 },
+        "reviewText": { "type": "string", "example": "Amazing movie!" }
       }
     },
 

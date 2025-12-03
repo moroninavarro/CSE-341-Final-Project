@@ -7,8 +7,8 @@ const validation = require('../middleware/validate-reviews');
 router.get('/', reviewController.getAll);
 router.get('/:id', reviewController.getSingle);
 
-router.post('/', isAuthenticated, reviewController.createReview);
-router.put('/:id', isAuthenticated, reviewController.updateReview);
+router.post('/', isAuthenticated, validation.saveReviews, reviewController.createReview);
+router.put('/:id', isAuthenticated, validation.saveReviews, reviewController.updateReview);
 router.delete('/:id', isAuthenticated, reviewController.deleteReview);
 
 module.exports = router;
