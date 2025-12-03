@@ -1,0 +1,31 @@
+const request = require('supertest');
+const app = require('../server');
+const { ObjectId } = require('mongodb');
+
+// Mock the database module
+jest.mock('../data/database', () => ({
+  getDatabase: () => ({
+    db: () => ({
+      collection: () => ({
+        find: () => ({ toArray: async () => [] }),
+        findOne: async () => null,
+      }),
+    }),
+  }),
+}));
+
+describe('Users API', () => {
+  test('GET /users returns an array', async () => {
+    const res = await request(app).get('/users');
+
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  test('GET /users/:id returns 400 for invalid ID', async () => {
+    const res = await request(app).get('/users/INVALID_ID');
+
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty('error');
+  });
+});
