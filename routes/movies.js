@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const movieController = require('../controllers/movies');
 const { isAuthenticated } = require("../middleware/authenticate");
+const validation = require('../middleware/validate-movies');
+
 
 router.get('/', movieController.getAll);
 router.get('/:id', movieController.getSingle);

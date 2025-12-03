@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/users');
 const { isAuthenticated } = require("../middleware/authenticate");
+const validation = require('../middleware/validate-user');
 
 router.get('/', userController.getAll);
 router.get('/:id', userController.getSingle);
