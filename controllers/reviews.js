@@ -74,15 +74,15 @@ const updateReview = async (req, res) => {
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({ error: "Invalid ID format" });
   }
-
+  
+  const updatedReview = {
+    movieId: new ObjectId(req.body.movieId),
+    userId: new ObjectId(req.body.userId),
+    rating: req.body.rating,
+    reviewText: req.body.reviewText
+  };
+  
   try {
-    const updatedReview = {
-      movieId: new ObjectId(req.body.movieId),
-      userId: new ObjectId(req.body.userId),
-      rating: req.body.rating,
-      reviewText: req.body.reviewText
-    };
-
     const result = await mongodb
       .getDatabase()
       .db()
