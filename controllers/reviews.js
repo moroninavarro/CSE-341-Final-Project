@@ -46,8 +46,8 @@ const getSingle = async (req, res) => {
 const createReview = async (req, res) => {
   try {
     const review = {
-      movieId: new ObjectId(req.body.movieId),
-      userId: new ObjectId(req.body.userId),
+      movieId: req.body.movieId,
+      userId: req.body.userId,
       rating: req.body.rating,
       reviewText: req.body.reviewText
     };
@@ -80,8 +80,8 @@ const updateReview = async (req, res) => {
   
   try {
   const updatedReview = {
-    movieId: new ObjectId(req.body.movieId),
-    userId: new ObjectId(req.body.userId),
+    movieId: req.body.movieId,
+    userId: req.body.userId,
     rating: req.body.rating,
     reviewText: req.body.reviewText
   };
