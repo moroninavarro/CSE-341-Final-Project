@@ -63,7 +63,10 @@ const createReview = async (req, res) => {
       id: result.insertedId
     });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(412).json({ 
+      success: false,
+      message: err.message,
+    data:err });
   }
 };
 
@@ -75,6 +78,7 @@ const updateReview = async (req, res) => {
     return res.status(400).json({ error: "Invalid ID format" });
   }
   
+  try {
   const updatedReview = {
     movieId: new ObjectId(req.body.movieId),
     userId: new ObjectId(req.body.userId),
@@ -82,7 +86,6 @@ const updateReview = async (req, res) => {
     reviewText: req.body.reviewText
   };
   
-  try {
     const result = await mongodb
       .getDatabase()
       .db()
